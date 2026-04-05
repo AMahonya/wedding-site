@@ -1,46 +1,398 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Админ-панель</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель | Свадебное приглашение</title>
     <style>
-        body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; margin: 0; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
-        h1 { color: #333; }
-        .response-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .response-header { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; flex-wrap: wrap; }
-        .guest-name { font-size: 1.2rem; font-weight: bold; color: #764ba2; }
-        .date { color: #999; font-size: 0.8rem; }
-        .attending-yes { color: green; font-weight: bold; }
-        .attending-no { color: red; font-weight: bold; }
-        .export-btn { background: #28a745; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-block; margin-bottom: 20px; }
-        hr { margin: 20px 0; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f0e8;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Шапка */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #c9a87b;
+        }
+
+        .admin-header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: #333;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-export, .btn-refresh {
+            background: #c9a87b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-export:hover, .btn-refresh:hover {
+            background: #b8926a;
+        }
+
+        /* Статистика */
+        .stats-cards {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .stat-card.attending .stat-number { color: #28a745; }
+        .stat-card.not-attending .stat-number { color: #dc3545; }
+        .stat-label { color: #666; margin-top: 0.5rem; }
+
+        /* Список ответов */
+        .responses-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .responses-header h2 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .response-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .response-card:hover {
+            transform: translateX(5px);
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .response-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .response-name i {
+            color: #c9a87b;
+            margin-right: 0.5rem;
+        }
+
+        .response-date {
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        .response-status {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .badge.yes { background: #d4edda; color: #155724; }
+        .badge.no { background: #f8d7da; color: #721c24; }
+        .badge.info { background: #e2e3e5; color: #383d41; }
+
+        .response-detail {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .response-message {
+            background: #f9f7f3;
+            padding: 1rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+        }
+
+        .response-message p {
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Кнопка удаления */
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .response-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        /* Пустое состояние */
+        .empty-state {
+            text-align: center;
+            padding: 4rem;
+            background: white;
+            border-radius: 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+
+        /* Подтверждение удаления */
+        .confirm-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #333;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .stats-cards {
+                flex-direction: column;
+            }
+
+            .response-header {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📋 Ответы гостей</h1>
-        <a href="/admin/export?password=wedding2026" class="export-btn">📥 Экспорт в JSON</a>
-        <hr>
-        {% for r in responses %}
-        <div class="response-card">
-            <div class="response-header">
-                <span class="guest-name">{{ r.guest_name }}</span>
-                <span class="date">{{ r.created_at }}</span>
+        <div class="admin-header">
+            <h1><i class="fas fa-chart-line"></i> Админ-панель</h1>
+            <div class="admin-actions">
+                <a href="/admin/export?password=wedding2026" class="btn-export">
+                    <i class="fas fa-download"></i> Экспорт JSON
+                </a>
+                <a href="/admin?password=wedding2026" class="btn-refresh">
+                    <i class="fas fa-sync-alt"></i> Обновить
+                </a>
             </div>
-            <p><strong>Присутствие:</strong> 
-                {% if r.attending == 'yes' %}
-                    <span class="attending-yes">✅ Да</span>
-                {% else %}
-                    <span class="attending-no">❌ Нет</span>
-                {% endif %}
-            </p>
-            <p><strong>Гостей:</strong> {{ r.guests_count }} | <strong>Подарок:</strong> {{ r.gift_type }}</p>
-            {% if r.message %}
-            <p><strong>Сообщение:</strong> "{{ r.message }}"</p>
-            {% endif %}
         </div>
-        {% endfor %}
+
+        <!-- Статистика -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-number">{{ total }}</div>
+                <div class="stat-label">Всего ответов</div>
+            </div>
+            <div class="stat-card attending">
+                <div class="stat-number">{{ attending }}</div>
+                <div class="stat-label">✅ Придут</div>
+            </div>
+            <div class="stat-card not-attending">
+                <div class="stat-number">{{ not_attending }}</div>
+                <div class="stat-label">❌ Не придут</div>
+            </div>
+        </div>
+
+        <!-- Список ответов -->
+        <div class="responses-header">
+            <h2><i class="fas fa-list"></i> Все ответы гостей</h2>
+        </div>
+
+        {% if responses %}
+            {% for response in responses %}
+            <div class="response-card" id="response-{{ response.id }}">
+                <div class="response-header">
+                    <div class="response-name">
+                        <i class="fas fa-user-circle"></i>
+                        <strong>{{ response.guest_name }}</strong>
+                    </div>
+                    <div class="response-date">
+                        <i class="fas fa-calendar"></i> {{ response.created_at }}
+                    </div>
+                </div>
+
+                <div class="response-status">
+                    {% if response.attending == 'yes' %}
+                        <span class="badge yes">✅ Присутствует</span>
+                    {% else %}
+                        <span class="badge no">❌ Отсутствует</span>
+                    {% endif %}
+                    <span class="badge info">👥 {{ response.guests_count }} гостей</span>
+                    <span class="badge info">🎁 {{ response.gift_type }}</span>
+                </div>
+
+                {% if response.food_no_meat or response.food_no_fish or response.food_vegan %}
+                <div class="response-detail">
+                    <strong>🍽️ Питание:</strong>
+                    {% if response.food_no_meat %}✔️ Буду присутствовать {% endif %}
+                    {% if response.food_no_fish %}❓ Подумаю {% endif %}
+                    {% if response.food_vegan %}🚫 Не смогу {% endif %}
+                </div>
+                {% endif %}
+
+                <div class="response-detail">
+                    <strong>🍷 Алкоголь:</strong>
+                    {% if response.alcohol_red %}🍷 красное вино {% endif %}
+                    {% if response.alcohol_white %}🥂 белое вино {% endif %}
+                    {% if response.alcohol_champagne %}🍾 самогон {% endif %}
+                    {% if response.alcohol_whiskey %}🥃 виски/коньяк {% endif %}
+                    {% if response.alcohol_vodka %}🍸 водка {% endif %}
+                    {% if response.alcohol_none %}🚫 не пьёт {% endif %}
+                </div>
+
+                {% if response.message %}
+                <div class="response-message">
+                    <strong>💌 Сообщение:</strong>
+                    <p>"{{ response.message }}"</p>
+                </div>
+                {% endif %}
+
+                <div class="response-actions">
+                    <button class="delete-btn" onclick="deleteResponse({{ response.id }})">
+                        <i class="fas fa-trash-alt"></i> Удалить
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <p>Пока нет ни одного ответа</p>
+                <p style="font-size: 0.8rem;">Гости ещё не подтвердили присутствие</p>
+            </div>
+        {% endif %}
     </div>
+
+    <script>
+        function deleteResponse(id) {
+            if (confirm('Вы уверены, что хотите удалить этот ответ? Это действие нельзя отменить.')) {
+                fetch('/admin/delete/' + id + '?password=wedding2026')
+                    .then(response => {
+                        if (response.ok) {
+                            // Удаляем карточку из DOM
+                            const card = document.getElementById('response-' + id);
+                            if (card) {
+                                card.remove();
+                            }
+                            // Показываем уведомление
+                            showToast('✅ Ответ удалён');
+                            // Обновляем страницу через 1 секунду для обновления статистики
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            showToast('❌ Ошибка при удалении');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        showToast('❌ Ошибка при удалении');
+                    });
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'confirm-toast';
+            toast.innerHTML = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.remove();
+            }, 2000);
+        }
+    </script>
+
+    <!-- Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </body>
 </html>

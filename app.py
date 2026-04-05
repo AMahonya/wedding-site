@@ -74,6 +74,21 @@ def admin():
     return render_template('admin.html', responses=responses)
 
 
+@app.route('/admin/delete/<int:response_id>')
+def delete_response(response_id):
+    password = request.args.get('password')
+    if password != 'wedding2026':
+        return "Доступ запрещён", 401
+
+    conn = get_db()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM rsvp_responses WHERE id = ?', (response_id,))
+    conn.commit()
+    conn.close()
+
+    return redirect(url_for('admin', password=password))
+
+
 @app.route('/admin/export')
 def export_json():
     password = request.args.get('password')

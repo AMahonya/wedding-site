@@ -65,16 +65,16 @@
             <h2 class="section-title">Наша история</h2>
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&sat=-100" alt="Свадебное фото">
+                    <img src="/static/images/in1.jpg" alt="Свадебное фото">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&sat=-100" alt="Свадебные кольца">
+                    <img src="/static/images/in2.jpg" alt="Свадебные кольца">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&sat=-100" alt="Свадебный букет">
+                    <img src="/static/images/in3.jpg" alt="Свадебный букет">
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80&sat=-100" alt="Молодожены">
+                    <img src="/static/images/in4.jpg" alt="Молодожены">
                 </div>
             </div>
         </div>
@@ -110,34 +110,26 @@
 
             <div class="schedule-list">
                 <div class="schedule-item">
-                    <div class="schedule-time">12:00</div>
+                    <div class="schedule-time">16:00</div>
                     <div class="schedule-desc">
                         <strong>Торжественная регистрация брака</strong>
-                        <p>Английская набережная, 28</p>
-                        <small>Наша регистрация пройдет в залах ЗАГСа Адмиралтейского района, приглашаем всех разделить с нами такой торжественный момент</small>
+                        <p>ул. Свердлова, 5</p>
+                        <small>Наша регистрация пройдет в зале ЗАГСа г. Ярославля, приглашаем всех разделить с нами такой торжественный момент</small>
                     </div>
                 </div>
 
                 <div class="schedule-item">
-                    <div class="schedule-time">14:00</div>
+                    <div class="schedule-time">17:30</div>
                     <div class="schedule-desc">
-                        <strong>Фуршет</strong>
+                        <strong>Сбор гостей</strong>
                         <p>Банкетный зал</p>
-                        <small>Время пролетит незаметно за фуршетом и общением с другими гостями</small>
+                        <small>Время пролетит незаметно, если пообщаться с другими гостями.</small>
                     </div>
                 </div>
 
-                <div class="schedule-item">
-                    <div class="schedule-time">15:00</div>
-                    <div class="schedule-desc">
-                        <strong>Фотосессия</strong>
-                        <p>Банкетный зал</p>
-                        <small>До банкета у вас будет время, чтобы узнать друг друга поближе и пофотографироваться</small>
-                    </div>
-                </div>
 
                 <div class="schedule-item">
-                    <div class="schedule-time">17:00</div>
+                    <div class="schedule-time">18:00</div>
                     <div class="schedule-desc">
                         <strong>Праздничный банкет</strong>
                         <p>Банкетный зал</p>
@@ -150,42 +142,85 @@
                     <div class="schedule-desc">
                         <strong>Окончание праздничного дня</strong>
                         <p>Терраса ресторана</p>
-                        <small>Даже такой день может когда-то подойти к концу</small>
+                        <small>Даже такой волшебный и прекрасный день может когда-то подойти к концу</small>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- СЕКЦИЯ 6: Карта -->
-    <section id="map" class="map-section">
-        <div class="container">
-            <h2 class="section-title">Карта</h2>
-            <div class="map-container">
-                <div id="wedding-map" style="height: 400px; width: 100%;"></div>
+<!-- СЕКЦИЯ: Карта -->
+<section id="map" class="map-section">
+    <div class="container">
+        <h2 class="section-title">Карта</h2>
+        <div class="map-container">
+            <!-- Яндекс.Карта с точными координатами -->
+            <iframe
+                src="https://yandex.ru/map-widget/v1/?ll=39.8815%2C57.6352&z=16&l=map&pt=39.883819,57.628924,pm2dpl~39.877027,57.641519,pm2bld"
+                width="100%"
+                height="400"
+                frameborder="0"
+                style="border-radius: 20px;"
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="map-addresses">
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Регистрация (ЗАГС):</strong> улица Свердлова, 5, Ярославль</p>
+            <p><i class="fas fa-champagne-glasses"></i> <strong>Банкет:</strong> проспект Ленина, 10/1, Ярославль</p>
+            <p><small>📍 <a href="https://yandex.ru/maps/?pt=39.883819,57.628924&z=16" target="_blank" style="color: #764ba2;">Построить маршрут до ЗАГСа</a> |
+                       <a href="https://yandex.ru/maps/?pt=39.877027,57.641519&z=16" target="_blank" style="color: #764ba2;">Маршрут до банкета</a></small></p>
+        </div>
+    </div>
+</section>
+
+    <!-- СЕКЦИЯ: Дресс-код -->
+<section id="dresscode" class="dresscode-section">
+    <div class="container">
+        <h2 class="section-title">Дресс-код</h2>
+
+        <div class="dresscode-intro">
+            <p>Нам бы хотелось, чтобы атмосфера праздника была гармоничной и отражала стиль нашего дня.</p>
+        </div>
+
+        <div class="dresscode-rules">
+            <div class="rule-card">
+                <div class="rule-icon">👔</div>
+                <h3>Мужчинам</h3>
+                <p>Просим выбрать <strong>верх в нежных постельных тонах</strong>, а <strong>низ — в чёрных, коричневых или постельных оттенках</strong>.</p>
+                <div class="color-examples">
+                    <span style="background: #f5e6d3;"></span>
+                    <span style="background: #e8d5b5;"></span>
+                    <span style="background: #d4d9c4;"></span>
+                    <span style="background: #2c2c2c;"></span>
+                    <span style="background: #8B7355;"></span>
+                </div>
             </div>
-            <div class="map-addresses">
-                <p><i class="fas fa-map-marker-alt"></i> <strong>Регистрация:</strong> Английская набережная, 28, Санкт-Петербург</p>
-                <p><i class="fas fa-champagne-glasses"></i> <strong>Банкет:</strong> Невский проспект, 123, Санкт-Петербург</p>
+
+            <div class="rule-card">
+                <div class="rule-icon">👗</div>
+                <h3>Женщинам</h3>
+                <p>Допускаются <strong>нежные постельные оттенки</strong>. В <strong>белом</strong> приходить в этот день <strong>нельзя</strong>.</p>
+                <div class="color-examples">
+                    <span style="background: #f5e6d3;"></span>
+                    <span style="background: #e8d5b5;"></span>
+                    <span style="background: #d4e6d4;"></span>
+                    <span style="background: #f0e6f0;"></span>
+                    <span style="background: #ffe8d9;"></span>
+                </div>
             </div>
         </div>
-    </section>
 
-    <!-- СЕКЦИЯ 7: Дресс-код и палитра -->
-    <section id="dresscode" class="dresscode-section">
-        <div class="container">
-            <h2 class="section-title">Дресс-код</h2>
-            <p class="dresscode-text">Будем благодарны, если при выборе нарядов на наше торжество вы придержитесь следующей палитры</p>
-
-            <div class="palette">
-                <div class="palette-color" style="background: #d4e6d4;">светло-зелёный</div>
-                <div class="palette-color" style="background: #f5e6d3;">бежевый</div>
-                <div class="palette-color" style="background: #f0e6f0;">пудровый</div>
-                <div class="palette-color" style="background: #d4d9c4;">оливковый</div>
-            </div>
+        <div class="dresscode-warning">
+            <i class="fas fa-exclamation-circle"></i>
+            <p><strong>Важно:</strong> Просим воздержаться от ярких и насыщенных цветов. Такие цвета могут выбиваться из общей концепции — наше торжество проходит в светлом минималистичном зале, где хочется сохранить спокойную и воздушную палитру.</p>
         </div>
-    </section>
 
+        <div class="dresscode-thanks">
+            <i class="fas fa-heart"></i>
+            <p>Благодарим за внимание к деталям.</p>
+        </div>
+    </div>
+</section>
 
 
     <!-- СЕКЦИЯ 9: Кнопка подтверждения -->
