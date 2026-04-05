@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 import sqlite3
 from datetime import datetime
 import json
@@ -59,6 +59,28 @@ def rsvp():
     return render_template('rsvp.html')
 
 
+# Добавляем фильтр pluralize
+def pluralize_filter(value, forms):
+    """Формирует правильное окончание для русских слов"""
+    if not isinstance(value, int):
+        value = int(value) if value.isdigit() else 0
+
+    forms_list = forms.split(',')
+    if len(forms_list) != 3:
+        return str(value)
+
+    if value % 10 == 1 and value % 100 != 11:
+        return forms_list[0]
+    elif value % 10 in (2, 3, 4) and value % 100 not in (12, 13, 14):
+        return forms_list[1]
+    else:
+        return forms_list[2]
+
+
+# Регистрируем фильтр
+app.jinja_env.filters['pluralize'] = pluralize_filter
+
+
 @app.route('/admin')
 def admin():
     password = request.args.get('password')
@@ -71,8 +93,25 @@ def admin():
     responses = cursor.fetchall()
     conn.close()
 
-    return render_template('admin.html', responses=responses)
+    # Подсчёт статистики с учётом количества гостей
+    total_guests = 0
+    attending_guests = 0
+    total_responses = len(responses)
 
+    for r in responses:
+        guests_count = r['guests_count'] if r['guests_count'] else 1
+        total_guests += guests_count
+        if r['attending'] == 'yes':
+            attending_guests += guests_count
+
+    not_attending_guests = total_guests - attending_guests
+
+    return render_template('admin.html',
+                           responses=responses,
+                           total_responses=total_responses,
+                           total_guests=total_guests,
+                           attending_guests=attending_guests,
+                           not_attending_guests=not_attending_guests)
 
 @app.route('/admin/delete/<int:response_id>')
 def delete_response(response_id):
