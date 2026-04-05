@@ -1,0 +1,670 @@
+/* ===== ГОРИЗОНТАЛЬНАЯ ДАТА ===== */
+.date-horizontal {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    margin-bottom: 2rem;
+    color: black;
+}
+
+/* ===== КНОПКА МУЗЫКИ ===== */
+.music-btn {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.music-btn:hover {
+    transform: scale(1.05);
+}
+
+.music-btn.playing {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(0,0,0,0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(0,0,0,0); }
+    100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); }
+}
+
+/* ===== ГАЛЕРЕЯ (чёрно-белые фото) ===== */
+.gallery-section {
+    padding: 5rem 0;
+    background: white;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 15px;
+    aspect-ratio: 1 / 1;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+    transition: transform 0.5s, filter 0.3s;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+    filter: grayscale(0%);
+}
+
+/* Адаптивность галереи */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .date-horizontal {
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+    }
+    
+    .music-btn {
+        bottom: 20px;
+        left: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Остальные стили остаются без изменений из предыдущего сообщения */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px 60px;
+    background: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: white;
+    color: black;
+}
+
+/* ===== НАВИГАЦИЯ ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    z-index: 1000;
+    padding: 0.8rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: black;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: opacity 0.3s;
+}
+
+.nav-link:hover {
+    opacity: 0.6;
+}
+
+.nav-rsvp {
+    background: black;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+}
+
+.nav-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* ===== ГЕРОЙ (скрин 1) ===== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 20px 60px;
+    background: white;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.date-stack {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    color: black;
+}
+
+.couple-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 6px;
+    margin-bottom: 1.5rem;
+    color: black;
+}
+
+.invite-main-text {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    color: black;
+}
+
+.wedding-full-date {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    margin-bottom: 2rem;
+    color: black;
+}
+
+.divider-line {
+    width: 60px;
+    height: 1px;
+    background: #ccc;
+    margin: 2rem auto;
+}
+
+.waiting-label {
+    font-size: 0.9rem;
+    letter-spacing: 3px;
+    margin-bottom: 2rem;
+    color: black;
+}
+
+.countdown-grid {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.countdown-cell {
+    text-align: center;
+}
+
+.countdown-cell span {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: black;
+}
+
+.countdown-cell label {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+    color: #666;
+}
+
+/* ===== ПРИВЕТСТВИЕ (скрин 2) ===== */
+.greeting-section {
+    padding: 5rem 0;
+    background: white;
+    text-align: center;
+}
+
+.greeting-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: black;
+}
+
+.greeting-text {
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+    color: black;
+}
+
+/* ===== ИНФО-БЛОКИ (скрин 3-4) ===== */
+.info-cards {
+    padding: 4rem 0;
+    background: white;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.info-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    color: black;
+}
+
+.info-block p {
+    line-height: 1.6;
+    color: #333;
+}
+
+.note-block {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.note-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: black;
+}
+
+/* ===== РАСПИСАНИЕ (скрин 7-8) ===== */
+.schedule-section {
+    padding: 5rem 0;
+    background: white;
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    color: black;
+}
+
+.schedule-list {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.schedule-item {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.schedule-time {
+    font-weight: 600;
+    font-size: 1.2rem;
+    min-width: 80px;
+    color: black;
+}
+
+.schedule-desc strong {
+    font-size: 1rem;
+    color: black;
+}
+
+.schedule-desc p {
+    margin: 0.3rem 0;
+    color: #555;
+}
+
+.schedule-desc small {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+/* ===== КАРТА ===== */
+.map-section {
+    padding: 5rem 0;
+    background: white;
+}
+
+.map-container {
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+}
+
+.map-addresses {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.map-addresses p {
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+/* ===== ДРЕСС-КОД (скрин 5) ===== */
+.dresscode-section {
+    padding: 5rem 0;
+    background: white;
+    text-align: center;
+}
+
+.dresscode-text {
+    margin-bottom: 2rem;
+    color: #555;
+}
+
+.palette {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.palette-color {
+    padding: 0.5rem 1.5rem;
+    border-radius: 40px;
+    color: #333;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+}
+
+/* ===== ХЕШТЕГ ===== */
+.hashtag-section {
+    padding: 4rem 0;
+    background: white;
+    text-align: center;
+}
+
+.hashtag-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: black;
+}
+
+.hashtag {
+    display: inline-block;
+    background: #f5f0e8;
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    margin-top: 1rem;
+    font-family: monospace;
+    color: black;
+}
+
+/* ===== КНОПКА ПОДТВЕРЖДЕНИЯ ===== */
+.cta-section {
+    padding: 4rem 0;
+    background: white;
+    text-align: center;
+}
+
+.cta-button {
+    display: inline-block;
+    background: black;
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: opacity 0.3s;
+}
+
+.cta-button:hover {
+    opacity: 0.8;
+    color: white;
+}
+
+/* ===== ФУТЕР ===== */
+.footer {
+    background: #f5f0e8;
+    padding: 2rem 0;
+    text-align: center;
+    color: #666;
+}
+
+/* ===== СТРАНИЦА RSVP ===== */
+.rsvp-page {
+    min-height: 100vh;
+    padding: 100px 0 60px;
+    background: white;
+}
+
+.rsvp-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    border: 1px solid #eee;
+    border-radius: 20px;
+}
+
+.rsvp-card h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+.deadline {
+    text-align: center;
+    color: #e74c3c;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-family: inherit;
+}
+
+.radio-group, .checkbox-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.checkbox-group.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.submit-btn {
+    background: black;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 50px;
+    width: 100%;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.submit-btn:hover {
+    opacity: 0.8;
+}
+
+.calendar-link {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.calendar-link a {
+    color: #666;
+    text-decoration: none;
+}
+
+/* ===== СТРАНИЦА СПАСИБО ===== */
+.thanks-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.thanks-card {
+    text-align: center;
+    padding: 3rem;
+}
+
+.thanks-card i {
+    font-size: 4rem;
+    color: #28a745;
+    margin-bottom: 1rem;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    color: black;
+    text-decoration: underline;
+}
+
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: white;
+        padding: 1rem;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    .couple-title {
+        font-size: 2rem;
+        letter-spacing: 3px;
+    }
+
+    .date-stack {
+        font-size: 2rem;
+    }
+
+    .countdown-grid {
+        gap: 0.8rem;
+    }
+
+    .countdown-cell span {
+        font-size: 1.2rem;
+    }
+
+    .two-columns {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .schedule-item {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .schedule-time {
+        min-width: auto;
+    }
+
+    .rsvp-card {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .checkbox-group.two-columns {
+        grid-template-columns: 1fr;
+    }
+}

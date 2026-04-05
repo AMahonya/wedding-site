@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель</title>
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #f5f0e8; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        h1 { color: #333; }
+        .response-card { background: white; border-radius: 15px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .response-header { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; display: flex; justify-content: space-between; flex-wrap: wrap; }
+        .guest-name { font-size: 1.2rem; font-weight: bold; color: #764ba2; }
+        .date { color: #999; font-size: 0.8rem; }
+        .attending-yes { color: green; font-weight: bold; }
+        .attending-no { color: red; font-weight: bold; }
+        .export-btn { background: #28a745; color: white; padding: 10px 20px; border-radius: 25px; text-decoration: none; display: inline-block; margin-bottom: 20px; }
+        hr { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Ответы гостей</h1>
+        <a href="/admin/export?password=wedding2026" class="export-btn">📥 Экспорт в JSON</a>
+        <hr>
+        {% for r in responses %}
+        <div class="response-card">
+            <div class="response-header">
+                <span class="guest-name">{{ r.guest_name }}</span>
+                <span class="date">{{ r.created_at }}</span>
+            </div>
+            <p><strong>Присутствие:</strong> 
+                {% if r.attending == 'yes' %}
+                    <span class="attending-yes">✅ Да</span>
+                {% else %}
+                    <span class="attending-no">❌ Нет</span>
+                {% endif %}
+            </p>
+            <p><strong>Гостей:</strong> {{ r.guests_count }} | <strong>Подарок:</strong> {{ r.gift_type }}</p>
+            {% if r.message %}
+            <p><strong>Сообщение:</strong> "{{ r.message }}"</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

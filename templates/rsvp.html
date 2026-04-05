@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="rsvp-page">
+    <div class="container">
+        <div class="rsvp-card">
+            <h1>Подтверждение присутствия</h1>
+            <p class="deadline">Пожалуйста, подтвердите до <strong>31.05.2026</strong></p>
+
+            <form method="POST" action="/rsvp">
+                <div class="form-group">
+                    <label>Ваше имя *</label>
+                    <input type="text" name="guest_name" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Вы сможете присутствовать?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="attending" value="yes" required> Да, буду!</label>
+                        <label><input type="radio" name="attending" value="no"> Увы, не смогу</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Количество гостей (включая вас)</label>
+                    <select name="guests_count" class="form-input">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Тип подарка</label>
+                    <select name="gift_type" class="form-input">
+                        <option value="money">💰 Денежный подарок</option>
+                        <option value="wine">🍷 Бутылочку алкоголя</option>
+                        <option value="other">🎁 Другое</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>🦋⃝💍 Будите ли вы присутствовать на торжественной регистрации брака?</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="food_no_meat"> Буду присутствовать</label>
+                        <label><input type="checkbox" name="food_no_fish"> Подумаю</label>
+                        <label><input type="checkbox" name="food_vegan"> Не смогу</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>🍷 Какой алкоголь вы предпочитаете?</label>
+                    <div class="checkbox-group two-columns">
+                        <label><input type="checkbox" name="alcohol_red"> Красное вино</label>
+                        <label><input type="checkbox" name="alcohol_white"> Белое вино</label>
+                        <label><input type="checkbox" name="alcohol_champagne"> Самогон</label>
+                        <label><input type="checkbox" name="alcohol_whiskey"> Виски/коньяк</label>
+                        <label><input type="checkbox" name="alcohol_vodka"> Водка</label>
+                        <label><input type="checkbox" name="alcohol_none"> Не буду пить алкоголь</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>💌 Добавить сообщение для жениха и невесты</label>
+                    <textarea name="message" class="form-input" rows="3" placeholder="Ваши тёплые слова..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Отправить</button>
+            </form>
+
+            <div class="calendar-link">
+                <a href="#" id="addToCalendar"><i class="fas fa-calendar-plus"></i> Добавить в календарь</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('addToCalendar').addEventListener('click', function(e) {
+        e.preventDefault();
+        const eventDate = "20260717T150000Z";
+        const url = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Динны+и+Алексея&dates=" + eventDate + "/" + eventDate + "&location=Английская+набережная,+28";
+        window.open(url, '_blank');
+    });
+</script>
+{% endblock %}
