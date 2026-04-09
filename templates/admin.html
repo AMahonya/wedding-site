@@ -442,114 +442,105 @@
         </div>
     </div>
 
-    <script>
-        // Функция обновления статистики на странице
-        function updateStats() {
-            const cards = document.querySelectorAll('.response-card');
-            const totalResponses = cards.length;
-            let totalGuests = 0;
-            let attendingGuests = 0;
+   <script>
+    // Функция обновления статистики
+    function updateStats() {
+        const cards = document.querySelectorAll('.response-card');
+        const totalResponses = cards.length;
+        let totalGuests = 0;
+        let attendingGuests = 0;
 
-            cards.forEach(card => {
-                const guestsCount = parseInt(card.getAttribute('data-guests')) || 1;
-                totalGuests += guestsCount;
+        cards.forEach(card => {
+            const guestsCount = parseInt(card.getAttribute('data-guests')) || 1;
+            totalGuests += guestsCount;
+            if (card.getAttribute('data-attending') === 'yes') {
+                attendingGuests += guestsCount;
+            }
+        });
 
-                if (card.getAttribute('data-attending') === 'yes') {
-                    attendingGuests += guestsCount;
+        const notAttendingGuests = totalGuests - attendingGuests;
+
+        const statResponses = document.getElementById('stat-responses');
+        const statTotal = document.getElementById('stat-total');
+        const statAttending = document.getElementById('stat-attending');
+        const statNot = document.getElementById('stat-not');
+        const responseCount = document.getElementById('response-count');
+
+        if (statResponses) statResponses.textContent = totalResponses;
+        if (statTotal) statTotal.textContent = totalGuests;
+        if (statAttending) statAttending.textContent = attendingGuests;
+        if (statNot) statNot.textContent = notAttendingGuests;
+        if (responseCount) responseCount.textContent = `Всего ответов: ${totalResponses}`;
+    }
+
+    function showToast(message, isError = false) {
+        const toast = document.createElement('div');
+        toast.className = 'confirm-toast';
+        toast.style.background = isError ? '#dc3545' : '#28a745';
+        toast.innerHTML = isError ? `❌ ${message}` : `✅ ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    async function deleteResponse(id) {
+        if (!confirm('❓ Вы уверены, что хотите удалить этот ответ?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/admin/delete/${id}`, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
                 }
             });
 
-            const notAttendingGuests = totalGuests - attendingGuests;
-
-            // Обновляем цифры на странице
-            const statResponses = document.getElementById('stat-responses');
-            const statTotal = document.getElementById('stat-total');
-            const statAttending = document.getElementById('stat-attending');
-            const statNot = document.getElementById('stat-not');
-            const responseCount = document.getElementById('response-count');
-
-            if (statResponses) statResponses.textContent = totalResponses;
-            if (statTotal) statTotal.textContent = totalGuests;
-            if (statAttending) statAttending.textContent = attendingGuests;
-            if (statNot) statNot.textContent = notAttendingGuests;
-            if (responseCount) responseCount.textContent = `Всего ответов: ${totalResponses}`;
-        }
-
-        // Показ уведомления
-        function showToast(message, isError = false) {
-            const toast = document.createElement('div');
-            toast.className = 'confirm-toast';
-            toast.style.background = isError ? '#dc3545' : '#28a745';
-            toast.innerHTML = isError ? `❌ ${message}` : `✅ ${message}`;
-            document.body.appendChild(toast);
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
-        }
-
-        // Функция удаления через fetch
-        async function deleteResponse(id) {
-            if (!confirm('❓ Вы уверены, что хотите удалить этот ответ? Это действие нельзя отменить.')) {
-                return;
-            }
-
-            const password = new URLSearchParams(window.location.search).get('password');
-
-            try {
-                const response = await fetch(`/admin/delete/${id}?password=${password}`, {
-                    method: 'GET',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                });
-
-                if (response.ok) {
-                    const card = document.querySelector(`.response-card[data-id="${id}"]`);
-                    if (card) {
-                        card.remove();
-                        updateStats();
-                        showToast('Ответ успешно удалён');
-
-                        const remainingCards = document.querySelectorAll('.response-card');
-                        if (remainingCards.length === 0) {
-                            const container = document.getElementById('responses-list');
-                            if (container) {
-                                container.innerHTML = `
-                                    <div class="empty-state">
-                                        <i class="fas fa-inbox"></i>
-                                        <p>Пока нет ни одного ответа</p>
-                                        <p style="font-size: 0.8rem;">Гости ещё не подтвердили присутствие</p>
-                                    </div>
-                                `;
-                            }
-                        }
-                    }
-                } else if (response.status === 401) {
-                    showToast('Сессия истекла. Обновите страницу.', true);
-                    setTimeout(() => location.reload(), 1500);
-                } else {
-                    showToast('Ошибка при удалении. Попробуйте обновить страницу.', true);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showToast('Ошибка сети. Проверьте подключение.', true);
-            }
-        }
-
-        // Навешиваем обработчики на кнопки удаления (делегирование)
-        document.getElementById('responses-list').addEventListener('click', function(e) {
-            const deleteBtn = e.target.closest('.delete-btn');
-            if (deleteBtn) {
-                const card = deleteBtn.closest('.response-card');
+            if (response.ok) {
+                const card = document.querySelector(`.response-card[data-id="${id}"]`);
                 if (card) {
-                    const id = card.getAttribute('data-id');
-                    if (id) {
-                        deleteResponse(id);
+                    card.remove();
+                    updateStats();
+                    showToast('Ответ успешно удалён');
+                }
+
+                const remainingCards = document.querySelectorAll('.response-card');
+                if (remainingCards.length === 0) {
+                    const container = document.getElementById('responses-list');
+                    if (container) {
+                        container.innerHTML = `
+                            <div class="empty-state">
+                                <i class="fas fa-inbox"></i>
+                                <p>Пока нет ни одного ответа</p>
+                                <p style="font-size: 0.8rem;">Гости ещё не подтвердили присутствие</p>
+                            </div>
+                        `;
                     }
                 }
+            } else if (response.status === 401) {
+                showToast('Сессия истекла. Перенаправление на страницу входа...', true);
+                setTimeout(() => {
+                    window.location.href = '/admin/login-page';
+                }, 1500);
+            } else {
+                showToast('Ошибка при удалении', true);
             }
-        });
-    </script>
+        } catch (error) {
+            console.error('Error:', error);
+            showToast('Ошибка сети', true);
+        }
+    }
+
+    // Делегирование событий
+    document.getElementById('responses-list').addEventListener('click', function(e) {
+        const deleteBtn = e.target.closest('.delete-btn');
+        if (deleteBtn) {
+            const card = deleteBtn.closest('.response-card');
+            if (card) {
+                deleteResponse(card.getAttribute('data-id'));
+            }
+        }
+    });
+</script>
 
     <!-- Font Awesome для иконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
