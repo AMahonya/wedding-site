@@ -3,12 +3,234 @@
 {% block content %}
 <div class="thanks-page">
     <div class="container">
-        <div class="thanks-card">
-            <i class="fas fa-check-circle"></i>
-            <h2>Спасибо, {{ name }}!</h2>
-            <p>Мы очень рады, что вы разделите с нами этот важный день ❤️</p>
-            <a href="/" class="back-btn">Вернуться на главную</a>
+        <div class="thanks-card" data-aos="fade-up">
+            <div class="thanks-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Спасибо, {{ name|escape }}!</h2>
+            <p class="thanks-message">Мы очень рады, что вы разделите с нами этот важный день ❤️</p>
+
+            <div class="thanks-details">
+                <p>Мы свяжемся с вами ближе к дате свадьбы для уточнения деталей.</p>
+                <p class="small-text">Если вы передумали или хотите изменить данные, напишите нам:</p>
+                <div class="contact-links">
+                    <a href="tel:+79109626161" class="contact-link">
+                        <i class="fas fa-phone"></i> Позвонить
+                    </a>
+                    <a href="mailto:[mahanec.andrei@gmail.com]" class="contact-link">
+                        <i class="fas fa-envelope"></i> Написать
+                    </a>
+                </div>
+            </div>
+
+            <div class="thanks-actions">
+                <a href="/" class="back-btn">
+                    <i class="fas fa-home"></i> Вернуться на главную
+                </a>
+                <button onclick="window.print()" class="print-btn">
+                    <i class="fas fa-print"></i> Сохранить/Распечатать
+                </button>
+            </div>
         </div>
     </div>
 </div>
+
+<style>
+    .thanks-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        position: relative;
+        z-index: 1;
+        padding: 2rem;
+    }
+
+    .thanks-card {
+        text-align: center;
+        padding: 3rem;
+        background: white;
+        border-radius: 30px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        max-width: 500px;
+        margin: 0 auto;
+        animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .thanks-icon i {
+        font-size: 4rem;
+        color: #28a745;
+        margin-bottom: 1rem;
+        animation: scaleIn 0.5s ease 0.2s both;
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0);
+        }
+        to {
+            transform: scale(1);
+        }
+    }
+
+    .thanks-card h2 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .thanks-message {
+        font-size: 1.1rem;
+        color: #555;
+        margin-bottom: 1.5rem;
+    }
+
+    .thanks-details {
+        background: #f9f7f3;
+        padding: 1rem;
+        border-radius: 15px;
+        margin: 1.5rem 0;
+        text-align: center;
+    }
+
+    .thanks-details p {
+        margin: 0.5rem 0;
+        color: #666;
+    }
+
+    .small-text {
+        font-size: 0.8rem;
+        color: #999;
+    }
+
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 0.8rem;
+    }
+
+    .contact-link {
+        color: #764ba2;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: opacity 0.3s;
+    }
+
+    .contact-link:hover {
+        opacity: 0.7;
+        text-decoration: underline;
+    }
+
+    .thanks-actions {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #764ba2;
+        color: white;
+        padding: 0.7rem 1.5rem;
+        border-radius: 50px;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+
+    .back-btn:hover {
+        background: #5a3a7a;
+        transform: translateY(-2px);
+        color: white;
+    }
+
+    .print-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #c9a87b;
+        color: white;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .print-btn:hover {
+        background: #b8926a;
+        transform: translateY(-2px);
+    }
+
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .thanks-card {
+            padding: 1.5rem;
+            margin: 1rem;
+        }
+
+        .thanks-card h2 {
+            font-size: 1.5rem;
+        }
+
+        .thanks-actions {
+            flex-direction: column;
+        }
+
+        .contact-links {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+
+    /* Для печати */
+    @media print {
+        .navbar, .music-btn, .footer, .thanks-actions, .contact-links {
+            display: none;
+        }
+
+        .thanks-card {
+            box-shadow: none;
+            padding: 0;
+        }
+
+        body {
+            background: white;
+        }
+    }
+</style>
+
+<script>
+    // Анимация при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        // Сохраняем подтверждение в localStorage (чтобы не показывать форму повторно)
+        const guestName = "{{ name|escape }}";
+        if (guestName && guestName !== 'None') {
+            localStorage.setItem('rsvp_submitted', 'true');
+            localStorage.setItem('rsvp_guest_name', guestName);
+        }
+
+        // Автоматический редирект через 10 секунд (опционально)
+        // setTimeout(() => {
+        //     window.location.href = '/';
+        // }, 10000);
+    });
+</script>
 {% endblock %}

@@ -2,10 +2,9 @@
 
 {% block content %}
 <main>
-    <!-- СЕКЦИЯ 1: Герой с чёрно-белым фото -->
+    <!-- СЕКЦИЯ 1: Герой -->
     <section id="home" class="hero-section">
         <div class="hero-content">
-
             <!-- Дата горизонтально -->
             <div class="date-horizontal">
                 17 / 07 / 26
@@ -46,13 +45,13 @@
                     <label>секунд</label>
                 </div>
             </div>
-            <!-- Музыкальное сердечко (теперь после таймера) -->
-    <div class="music-heart" id="musicHeart">
-        <i class="fas fa-heart"></i>
-        <span class="music-heart-text">Музыкальное сердечко<br><small>(нажми на меня)</small></span>
-    </div>
-        </div>
 
+            <!-- Музыкальное сердечко (после таймера) -->
+            <div class="music-heart" id="musicHeart">
+                <i class="fas fa-heart"></i>
+                <span class="music-heart-text">Музыкальное сердечко<br><small>(нажми на меня)</small></span>
+            </div>
+        </div>
     </section>
 
     <!-- СЕКЦИЯ 2: Приветствие гостям -->
@@ -66,22 +65,22 @@
         </div>
     </section>
 
-    <!-- СЕКЦИЯ 3: Чёрно-белая галерея (новое) -->
+    <!-- СЕКЦИЯ 3: Чёрно-белая галерея -->
     <section class="gallery-section">
         <div class="container">
             <h2 class="section-title">Наша история</h2>
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="/static/images/in1.jpg" alt="Свадебное фото">
+                    <img src="{{ url_for('static', filename='images/in1.jpg') }}" alt="Свадебное фото пары">
                 </div>
                 <div class="gallery-item">
-                    <img src="/static/images/in2.jpg" alt="Свадебные кольца">
+                    <img src="{{ url_for('static', filename='images/in2.jpg') }}" alt="Свадебные кольца">
                 </div>
                 <div class="gallery-item">
-                    <img src="/static/images/in3.jpg" alt="Свадебный букет">
+                    <img src="{{ url_for('static', filename='images/in3.jpg') }}" alt="Свадебный букет">
                 </div>
                 <div class="gallery-item">
-                    <img src="/static/images/in4.jpg" alt="Молодожены">
+                    <img src="{{ url_for('static', filename='images/in4.jpg') }}" alt="Молодожены">
                 </div>
             </div>
         </div>
@@ -105,7 +104,7 @@
             <div class="note-block">
                 <h3>ПРИМЕЧАНИЕ</h3>
                 <p>Будем благодарны, если вы воздержитесь от криков "Горько" на празднике, ведь поцелуй — это знак выражения чувств, он не может быть по заказу.</p>
-                <p>В случае не выполнения данной просьбы ШТРАФНЫЕ САНКЦИИ в размере 20000 ₽.</p>
+                <p class="fine-print">⚠️ В случае не выполнения данной просьбы — ШТРАФНЫЕ САНКЦИИ в размере 20 000 ₽.</p>
             </div>
         </div>
     </section>
@@ -134,7 +133,6 @@
                     </div>
                 </div>
 
-
                 <div class="schedule-item">
                     <div class="schedule-time">18:00</div>
                     <div class="schedule-desc">
@@ -156,81 +154,83 @@
         </div>
     </section>
 
-<!-- СЕКЦИЯ: Карта -->
-<section id="map" class="map-section">
-    <div class="container">
-        <h2 class="section-title">Карта</h2>
-        <div class="map-container">
-            <!-- Яндекс.Карта с точными координатами -->
-            <iframe
-                src="https://yandex.ru/map-widget/v1/?ll=39.8815%2C57.6352&z=16&l=map&pt=39.883819,57.628924,pm2dpl~39.877027,57.641519,pm2bld"
-                width="100%"
-                height="400"
-                frameborder="0"
-                style="border-radius: 20px;"
-                allowfullscreen>
-            </iframe>
+    <!-- СЕКЦИЯ 6: Карта -->
+    <section id="map" class="map-section">
+        <div class="container">
+            <h2 class="section-title">Карта</h2>
+            <div class="map-container">
+                <iframe
+                    src="https://yandex.ru/map-widget/v1/?ll=39.8815%2C57.6352&z=16&l=map&pt=39.883819,57.628924,pm2dpl~39.877027,57.641519,pm2bld"
+                    width="100%"
+                    height="400"
+                    frameborder="0"
+                    style="border-radius: 20px; border: none;"
+                    allowfullscreen
+                    loading="lazy"
+                    title="Карта с местами проведения свадьбы">
+                </iframe>
+            </div>
+            <div class="map-addresses">
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Регистрация (ЗАГС):</strong> улица Свердлова, 5, Ярославль</p>
+                <p><i class="fas fa-champagne-glasses"></i> <strong>Банкетный зал:</strong> проспект Ленина, 10/1, Ярославль</p>
+                <p class="map-links">
+                    <small>📍 <a href="https://yandex.ru/maps/?pt=39.883819,57.628924&z=16" target="_blank" rel="noopener noreferrer" style="color: #764ba2;">Построить маршрут до ЗАГСа</a> |
+                       <a href="https://yandex.ru/maps/?pt=39.877027,57.641519&z=16" target="_blank" rel="noopener noreferrer" style="color: #764ba2;">Маршрут до банкетного зала</a></small>
+                </p>
+            </div>
         </div>
-        <div class="map-addresses">
-            <p><i class="fas fa-map-marker-alt"></i> <strong>Регистрация (ЗАГС):</strong> улица Свердлова, 5, Ярославль</p>
-            <p><i class="fas fa-champagne-glasses"></i> <strong>Банкетный зал:</strong> проспект Ленина, 10/1, Ярославль</p>
-            <p><small>📍 <a href="https://yandex.ru/maps/?pt=39.883819,57.628924&z=16" target="_blank" style="color: #764ba2;">Построить маршрут до ЗАГСа</a> |
-                       <a href="https://yandex.ru/maps/?pt=39.877027,57.641519&z=16" target="_blank" style="color: #764ba2;">Маршрут до банкетного зала</a></small></p>
-        </div>
-    </div>
-</section>
+    </section>
 
-    <!-- СЕКЦИЯ: Дресс-код -->
-<section id="dresscode" class="dresscode-section">
-    <div class="container">
-        <h2 class="section-title">Дресс-код</h2>
+    <!-- СЕКЦИЯ 7: Дресс-код -->
+    <section id="dresscode" class="dresscode-section">
+        <div class="container">
+            <h2 class="section-title">Дресс-код</h2>
 
-        <div class="dresscode-intro">
-            <p>Нам бы хотелось, чтобы атмосфера праздника была гармоничной и отражала стиль нашего дня.</p>
-        </div>
+            <div class="dresscode-intro">
+                <p>Нам бы хотелось, чтобы атмосфера праздника была гармоничной и отражала стиль нашего дня.</p>
+            </div>
 
-        <div class="dresscode-rules">
-            <div class="rule-card">
-                <div class="rule-icon">👔</div>
-                <h3>Мужчинам</h3>
-                <p>Просим выбрать <strong>верх в нежных постельных тонах</strong>, а <strong>низ — в чёрных, коричневых или постельных оттенках</strong>.</p>
-                <div class="color-examples">
-                    <span style="background: #f5e6d3;"></span>
-                    <span style="background: #e8d5b5;"></span>
-                    <span style="background: #d4d9c4;"></span>
-                    <span style="background: #2c2c2c;"></span>
-                    <span style="background: #8B7355;"></span>
+            <div class="dresscode-rules">
+                <div class="rule-card">
+                    <div class="rule-icon">👔</div>
+                    <h3>Мужчинам</h3>
+                    <p>Просим выбрать <strong>верх в нежных постельных тонах</strong>, а <strong>низ — в чёрных, коричневых или постельных оттенках</strong>.</p>
+                    <div class="color-examples">
+                        <span style="background: #f5e6d3;" title="Бежевый"></span>
+                        <span style="background: #e8d5b5;" title="Кремовый"></span>
+                        <span style="background: #d4d9c4;" title="Оливковый"></span>
+                        <span style="background: #2c2c2c;" title="Чёрный"></span>
+                        <span style="background: #8B7355;" title="Коричневый"></span>
+                    </div>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon">👗</div>
+                    <h3>Женщинам</h3>
+                    <p>Допускаются <strong>нежные постельные оттенки</strong>. В <strong>белом</strong> приходить в этот день <strong>нельзя</strong>.</p>
+                    <div class="color-examples">
+                        <span style="background: #f5e6d3;" title="Бежевый"></span>
+                        <span style="background: #e8d5b5;" title="Кремовый"></span>
+                        <span style="background: #d4e6d4;" title="Мятный"></span>
+                        <span style="background: #f0e6f0;" title="Лавандовый"></span>
+                        <span style="background: #ffe8d9;" title="Персиковый"></span>
+                    </div>
                 </div>
             </div>
 
-            <div class="rule-card">
-                <div class="rule-icon">👗</div>
-                <h3>Женщинам</h3>
-                <p>Допускаются <strong>нежные постельные оттенки</strong>. В <strong>белом</strong> приходить в этот день <strong>нельзя</strong>.</p>
-                <div class="color-examples">
-                    <span style="background: #f5e6d3;"></span>
-                    <span style="background: #e8d5b5;"></span>
-                    <span style="background: #d4e6d4;"></span>
-                    <span style="background: #f0e6f0;"></span>
-                    <span style="background: #ffe8d9;"></span>
-                </div>
+            <div class="dresscode-warning">
+                <i class="fas fa-exclamation-circle"></i>
+                <p><strong>Важно:</strong> Просим воздержаться от ярких и насыщенных цветов. Такие цвета могут выбиваться из общей концепции — наше торжество проходит в светлом минималистичном зале, где хочется сохранить спокойную и воздушную палитру.</p>
+            </div>
+
+            <div class="dresscode-thanks">
+                <i class="fas fa-heart"></i>
+                <p>Благодарим за внимание к деталям.</p>
             </div>
         </div>
+    </section>
 
-        <div class="dresscode-warning">
-            <i class="fas fa-exclamation-circle"></i>
-            <p><strong>Важно:</strong> Просим воздержаться от ярких и насыщенных цветов. Такие цвета могут выбиваться из общей концепции — наше торжество проходит в светлом минималистичном зале, где хочется сохранить спокойную и воздушную палитру.</p>
-        </div>
-
-        <div class="dresscode-thanks">
-            <i class="fas fa-heart"></i>
-            <p>Благодарим за внимание к деталям.</p>
-        </div>
-    </div>
-</section>
-
-
-    <!-- СЕКЦИЯ 9: Кнопка подтверждения -->
+    <!-- СЕКЦИЯ 8: Кнопка подтверждения -->
     <section class="cta-section">
         <div class="container">
             <a href="/rsvp" class="cta-button">
@@ -247,17 +247,5 @@
     </div>
 </footer>
 
-<link rel="stylesheet" href="https://unpkg.com/[email protected]/dist/leaflet.css" />
-<script src="https://unpkg.com/[email protected]/dist/leaflet.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var map = L.map('wedding-map').setView([59.9311, 30.2861], 14);
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            subdomains: 'abcd'
-        }).addTo(map);
-        L.marker([59.9311, 30.2861]).bindPopup('🏛️ ЗАГС: Английская набережная, 28').addTo(map);
-        L.marker([59.9343, 30.3351]).bindPopup('🍽️ Банкет: Невский проспект, 123').addTo(map);
-    });
-</script>
+<!-- Удаляем старый Leaflet код, так как карта теперь через Яндекс -->
 {% endblock %}

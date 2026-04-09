@@ -7,81 +7,248 @@
             <h1>Подтверждение присутствия</h1>
             <p class="deadline">Пожалуйста, подтвердите до <strong>31.05.2026</strong></p>
 
-            <form method="POST" action="/rsvp">
+            <form method="POST" action="/rsvp" id="rsvpForm">
+                <!-- Имя гостя -->
                 <div class="form-group">
-                    <label>Ваше имя *</label>
-                    <input type="text" name="guest_name" class="form-input" required>
+                    <label for="guest_name">Ваше имя *</label>
+                    <input type="text" name="guest_name" id="guest_name" class="form-input" required maxlength="100" placeholder="Иванова Мария Петровна">
+                    <small class="form-hint">Пожалуйста, укажите полное имя</small>
                 </div>
 
+                <!-- Присутствие -->
                 <div class="form-group">
                     <label>Вы сможете присутствовать?</label>
                     <div class="radio-group">
-                        <label><input type="radio" name="attending" value="yes" required> Да, буду!</label>
-                        <label><input type="radio" name="attending" value="no"> Увы, не смогу</label>
+                        <label class="radio-label">
+                            <input type="radio" name="attending" value="yes" required>
+                            <span>✅ Да, буду!</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="attending" value="no">
+                            <span>❌ Увы, не смогу</span>
+                        </label>
                     </div>
                 </div>
 
+                <!-- Количество гостей -->
                 <div class="form-group">
-                    <label>Количество гостей (включая вас)</label>
-                    <select name="guests_count" class="form-input">
+                    <label for="guests_count">Количество гостей (включая вас)</label>
+                    <select name="guests_count" id="guests_count" class="form-input">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
                     </select>
                 </div>
 
+                <!-- Тип подарка -->
                 <div class="form-group">
-                    <label>Тип подарка</label>
-                    <select name="gift_type" class="form-input">
+                    <label for="gift_type">Тип подарка</label>
+                    <select name="gift_type" id="gift_type" class="form-input">
                         <option value="money">💰 Денежный подарок</option>
                         <option value="wine">🍷 Бутылочку алкоголя</option>
                         <option value="other">🎁 Другое</option>
                     </select>
                 </div>
 
+                <!-- Присутствие на регистрации (исправлено название) -->
                 <div class="form-group">
-                    <label>🦋⃝💍 Будете ли вы присутствовать на торжественной регистрации брака?</label>
+                    <label>📋 Будете ли вы присутствовать на торжественной регистрации брака?</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" name="food_no_meat"> Буду присутствовать</label>
-                        <label><input type="checkbox" name="food_no_fish"> Подумаю</label>
-                        <label><input type="checkbox" name="food_vegan"> Не смогу</label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="ceremony_attend">
+                            <span>✅ Буду присутствовать</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="ceremony_think">
+                            <span>🤔 Подумаю</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="ceremony_not">
+                            <span>❌ Не смогу</span>
+                        </label>
                     </div>
+                    <small class="form-hint">Выберите один вариант</small>
                 </div>
 
+                <!-- Алкоголь -->
                 <div class="form-group">
                     <label>🍷 Какой алкоголь вы предпочитаете?</label>
                     <div class="checkbox-group two-columns">
-                        <label><input type="checkbox" name="alcohol_red"> Красное вино</label>
-                        <label><input type="checkbox" name="alcohol_white"> Белое вино</label>
-                        <label><input type="checkbox" name="alcohol_champagne"> Самогон</label>
-                        <label><input type="checkbox" name="alcohol_whiskey"> Виски/коньяк</label>
-                        <label><input type="checkbox" name="alcohol_vodka"> Водка</label>
-                        <label><input type="checkbox" name="alcohol_none"> Не буду пить алкоголь</label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alcohol_red">
+                            <span>🍷 Красное вино</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alcohol_white">
+                            <span>🥂 Белое вино</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alcohol_champagne">
+                            <span>🍾 Самогон</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alcohol_whiskey">
+                            <span>🥃 Виски/коньяк</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alcohol_vodka">
+                            <span>🍸 Водка</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="alcohol_none">
+                            <span>🚫 Не буду пить алкоголь</span>
+                        </label>
                     </div>
                 </div>
 
+                <!-- Сообщение -->
                 <div class="form-group">
-                    <label>💌 Добавить сообщение для жениха и невесты</label>
-                    <textarea name="message" class="form-input" rows="3" placeholder="Ваши тёплые слова..."></textarea>
+                    <label for="message">💌 Добавить сообщение для жениха и невесты</label>
+                    <textarea name="message" id="message" class="form-input" rows="3" maxlength="500" placeholder="Ваши тёплые слова..."></textarea>
+                    <small class="form-hint" id="messageCounter">Максимум 500 символов</small>
                 </div>
 
-                <button type="submit" class="submit-btn">Отправить</button>
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Отправить
+                </button>
             </form>
 
             <div class="calendar-link">
-                <a href="#" id="addToCalendar"><i class="fas fa-calendar-plus"></i> Добавить в календарь</a>
+                <a href="#" id="addToCalendar">
+                    <i class="fas fa-calendar-plus"></i> Добавить в календарь
+                </a>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    document.getElementById('addToCalendar').addEventListener('click', function(e) {
-        e.preventDefault();
-        const eventDate = "20260717T150000Z";
-        const url = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Свадьба+Динны+и+Алексея&dates=" + eventDate + "/" + eventDate + "&location=Английская+набережная,+28";
-        window.open(url, '_blank');
-    });
+    (function() {
+        // ===== КАЛЕНДАРЬ =====
+        const addToCalendarBtn = document.getElementById('addToCalendar');
+        if (addToCalendarBtn) {
+            addToCalendarBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                // Исправленные данные (Ярославль, а не Питер)
+                const eventTitle = encodeURIComponent('Свадьба Эллины и Андрея');
+                const eventDate = '20260717T160000Z'; // 17 июля 2026, 16:00
+                const eventEnd = '20260717T230000Z';
+                const location = encodeURIComponent('ул. Свердлова, 5, Ярославль (ЗАГС)');
+                const details = encodeURIComponent('Дорогие гости! Ждём вас на нашей свадьбе.\n\nПрограмма:\n16:00 - Торжественная регистрация\n18:00 - Праздничный банкет\n\nПодробнее на сайте');
+
+                const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${eventTitle}&dates=${eventDate}/${eventEnd}&location=${location}&details=${details}`;
+                window.open(url, '_blank', 'noopener,noreferrer');
+            });
+        }
+
+        // ===== ВАЛИДАЦИЯ ФОРМЫ =====
+        const form = document.getElementById('rsvpForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                // Блокируем повторную отправку
+                if (submitBtn.disabled) {
+                    e.preventDefault();
+                    return;
+                }
+
+                // Проверка имени
+                const guestName = document.getElementById('guest_name');
+                if (guestName && guestName.value.trim().length < 2) {
+                    e.preventDefault();
+                    alert('Пожалуйста, укажите ваше полное имя (минимум 2 символа)');
+                    guestName.focus();
+                    return;
+                }
+
+                // Проверка выбора присутствия
+                const attending = document.querySelector('input[name="attending"]:checked');
+                if (!attending) {
+                    e.preventDefault();
+                    alert('Пожалуйста, укажите, сможете ли вы присутствовать');
+                    return;
+                }
+
+                // Блокируем кнопку после отправки
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+            });
+        }
+
+        // ===== СЧЁТЧИК СИМВОЛОВ ДЛЯ СООБЩЕНИЯ =====
+        const messageField = document.getElementById('message');
+        const messageCounter = document.getElementById('messageCounter');
+
+        if (messageField && messageCounter) {
+            function updateCounter() {
+                const remaining = 500 - messageField.value.length;
+                if (remaining < 0) {
+                    messageField.value = messageField.value.substring(0, 500);
+                }
+                const newRemaining = 500 - messageField.value.length;
+                messageCounter.textContent = `Осталось ${newRemaining} из 500 символов`;
+                messageCounter.style.color = newRemaining < 50 ? '#e74c3c' : '#999';
+            }
+
+            messageField.addEventListener('input', updateCounter);
+            updateCounter();
+        }
+
+        // ===== ПРЕДОТВРАЩАЕМ ВЫБОР НЕСКОЛЬКИХ ВАРИАНТОВ В РЕГИСТРАЦИИ =====
+        const ceremonyCheckboxes = document.querySelectorAll('input[name="ceremony_attend"], input[name="ceremony_think"], input[name="ceremony_not"]');
+        if (ceremonyCheckboxes.length > 0) {
+            ceremonyCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        ceremonyCheckboxes.forEach(cb => {
+                            if (cb !== this) cb.checked = false;
+                        });
+                    }
+                });
+            });
+        }
+    })();
 </script>
+
+<style>
+    /* Дополнительные стили для формы */
+    .form-hint {
+        display: block;
+        font-size: 0.7rem;
+        color: #999;
+        margin-top: 0.25rem;
+    }
+
+    .radio-label, .checkbox-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        margin-right: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .radio-label input, .checkbox-label input {
+        cursor: pointer;
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .fa-spinner {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+</style>
 {% endblock %}
